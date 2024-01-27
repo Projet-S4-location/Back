@@ -133,5 +133,5 @@ function select_all_user_with_parameter($conn, $parameter_name, $parameter_value
     $ret=mysqli_fetch_all(mysqli_query($conn, $sql));
     return $ret ;
     }
-    
+
 ?>

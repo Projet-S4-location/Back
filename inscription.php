@@ -3,6 +3,7 @@ require_once "cruds/crud_users.php";
 require_once "db_connect.php";
 require_once "utils.php";
 
+session_start();
 
 
 function inscription() {

@@ -4,9 +4,9 @@ header('Access-Control-Allow-Headers: *');
 header('Access-Control-Allow-Methods: OPTIONS, GET, POST, PUT, DELETE');
 header('Access-Control-Allow-Credentials: true'); // Ajoutez cette ligne
 
-require_once "cruds/crud_users.php";
-require_once "db_connect.php";
-require_once "utils.php";
+require_once "./../cruds/crud_users.php";
+require_once "./../db_connect.php";
+require_once "./../utils.php";
 
 session_start();
 

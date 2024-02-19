@@ -1,18 +1,18 @@
 <?php
-function create_user($conn, $mail, $username, $password, $permission){
+function create_user($conn, $username, $password, $permission){
 
 /* fonction pour ajouter / creer un(e) new 'user'
      *              entree: element de connexion
      *                      toutes les variables: valeurs des colonnes
      *              sortie: sql request
 */
-$sql = "INSERT INTO `users`(`mail`, `username`, `password`, `permission`) VALUES('$mail', '$username', '$password', '$permission') ";
+$sql = "INSERT INTO `users`(`username`, `password`, `permission`) VALUES('$username', '$password', '$permission') ";
 return mysqli_query($conn, $sql);
 }
     
         
         
-function update_user($conn, $mail, $username, $password, $permission, $id){
+function update_user($conn, $username, $password, $permission, $id){
 
 /* fonction pour update / modifier un(e) 'user' en fonction de l'id
  *              entree: element de connexion
@@ -20,7 +20,7 @@ function update_user($conn, $mail, $username, $password, $permission, $id){
  *              sortie: sql request
  */
 
-$sql = "UPDATE `users` set `mail`='$mail', `username`='$username', `password`='$password', `permission`='$permission' WHERE`id_user`=$id";
+$sql = "UPDATE `users` set `username`='$username', `password`='$password', `permission`='$permission' WHERE`id_user`=$id";
 return mysqli_query($conn, $sql);
 }
     
@@ -55,7 +55,7 @@ return $ret;
 }
 
 function select_all_user($conn){
-     $sql = "SELECT `id_user`, `mail`, `username`, `permission` FROM `users` ORDER BY `id_user`";
+     $sql = "SELECT `id_user`, `username`, `permission` FROM `users` ORDER BY `id_user`";
      if ($res = mysqli_query($conn, $sql))
      {
           $res = mysqli_fetch_all($res);

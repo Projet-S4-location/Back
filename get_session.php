@@ -1,16 +1,9 @@
-
 <?php
 header('Access-Control-Allow-Origin: http://localhost:5173');
 header('Access-Control-Allow-Headers: *');
 header('Access-Control-Allow-Methods: OPTIONS, GET, POST, PUT, DELETE');
+header('content-type:application/json');
 header('Access-Control-Allow-Credentials: true');
 
-require_once "./../utils.php";
-
 session_start();
-function logout(){
-    session_unset();
-    return success_message_json(204, "204 No Content: Logged out successfully.");
-}
-
-print(logout());
+echo json_encode($_SESSION);

@@ -2,18 +2,19 @@
 header('Access-Control-Allow-Origin: http://localhost:5173');
 header('Access-Control-Allow-Headers: *');
 header('Access-Control-Allow-Methods: OPTIONS, GET, POST, PUT, DELETE');
-header('Access-Control-Allow-Credentials: true'); // Ajoutez cette ligne
+header('Access-Control-Allow-Credentials: true');
 
 require_once "./../cruds/crud_users.php";
 require_once "./../db_connect.php";
 require_once "./../utils.php";
+
+ini_set('session.gc_maxlifetime', 86400);
 
 session_start();
 
 function login(){
     if (update_post_var())
     {
-        
         // get the data
         if (isset($_POST["username"]) && isset($_POST["password"]))
         {
@@ -46,7 +47,6 @@ function login(){
                 // update the restriction
                 // set the session 
                 $_SESSION["id_user"] = $user["id_user"];
-                $_SESSION["mail"] = $user["mail"];
                 $_SESSION["username"] = $user["username"];
                 $_SESSION["permission"] = $user["permission"];
                 
@@ -77,7 +77,6 @@ function login(){
 function make_data_of_user($tab){
     $data = [
         "id_user" => $tab["id_user"],
-        "mail" => $tab["mail"], 
         "username" => $tab["username"],
         "permission" => $tab["permission"],
     ];

@@ -1,14 +1,39 @@
 <?php
-function create_product($conn, $name, $type, $desc, $price, $image){
+function create_product($conn, $name, $type, $desc, $price, $file){
 
-/* fonction pour ajouter / creer un(e) new 'product'
-     *              entree: element de connexion
-     *                      toutes les variables: valeurs des colonnes
-     *              sortie: sql request
-*/
-$sql = "INSERT INTO `products`(`name`, `type`, `desc`, `price`, `image`) VALUES('$name', '$type', '$desc', '$price', '$image) ";
-return mysqli_query($conn, $sql);
-}
+     /* fonction pour ajouter / créer un nouveau 'product'
+      *              entrée: élément de connexion
+      *                      toutes les variables: valeurs des colonnes
+      *                      $file: le fichier lui-même (pas le chemin)
+      *              sortie: résultat de l'insertion ou false en cas d'échec
+     */
+ 
+     // Vérifiez si un fichier a été téléchargé
+     if (isset($file)) {
+         // Récupérez le nom temporaire du fichier
+         $file_tmp = $file["fichier"]['tmp_name'];
+ 
+         // Lisez le contenu du fichier
+         $file_content = file_get_contents($file_tmp);
+ 
+         // Echappez le contenu pour l'insérer dans la base de données (pour éviter les injections SQL)
+         $file_content_escaped = mysqli_real_escape_string($conn, $file_content);
+ 
+         // Insérez le contenu du fichier dans la base de données
+         $sql = "INSERT INTO `products`(`name`, `type`, `desc`, `price`, `image`) VALUES('$name', '$type', '$desc', '$price', '$file_content_escaped') ";
+         print($sql);
+         $result = mysqli_query($conn, $sql);
+ 
+         // Vérifiez si l'insertion a réussi
+         return $result;
+     } else {
+         // Gérez les erreurs de téléchargement de fichier
+         $sql = "INSERT INTO `products`(`name`, `type`, `desc`, `price`) VALUES('$name', '$type', '$desc', '$price') ";
+         $result = mysqli_query($conn, $sql);
+         return $result;
+     }
+ }
+ 
     
         
         

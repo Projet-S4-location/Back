@@ -101,7 +101,7 @@ function select_all_studios($conn){
 }
 
 function select_all_not_studios($conn){
-     $sql = "SELECT `id_product`, `name`, `type`, `desc`, `price`, `image` FROM `products` WHERE type != 'studio' ORDER BY `id_product`";
+     $sql = "SELECT `id_product`, `name`, `type`, `desc`, `price` FROM `products` WHERE type != 'studio' ORDER BY `id_product`";
      $products = array();
      if ($res = mysqli_query($conn, $sql))
      {
@@ -112,6 +112,20 @@ function select_all_not_studios($conn){
      return $products;
 }
 
+
+function select_image($conn, $id){
+     /* fonction pour selectionner un(e) 'product' en fonction de l'id
+          *              entree: element de connexion
+          *                      id: id de 'product' a recuperer
+          *              sortie: element
+     */
+     
+     $sql = "SELECT `image` FROM `products` WHERE `id_product`=$id";
+     if($ret=mysqli_query($conn, $sql)){
+         $ret=mysqli_fetch_assoc($ret);
+     }
+     return $ret;
+     }
 function delete_product($conn, $id){
 
 /* fonction pour supprimer un(e) 'product' en fonction de l'id

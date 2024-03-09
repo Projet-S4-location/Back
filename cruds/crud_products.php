@@ -79,8 +79,10 @@ if($ret=mysqli_query($conn, $sql)){
 return $ret;
 }
 
+
+
 function select_all_product($conn){
-     $sql = "SELECT `id_product`, `name`, `type`, `desc`, `price`, `image` FROM `products` ORDER BY `id_product`";
+     $sql = "SELECT `id_product`, `name`, `type`, `desc`, `price` FROM `products` ORDER BY `id_product`";
      if ($res = mysqli_query($conn, $sql))
      {
           $res = mysqli_fetch_all($res);

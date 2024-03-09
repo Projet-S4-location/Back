@@ -21,7 +21,6 @@ function create_product($conn, $name, $type, $desc, $price, $file){
  
          // Insérez le contenu du fichier dans la base de données
          $sql = "INSERT INTO `products`(`name`, `type`, `desc`, `price`, `image`) VALUES('$name', '$type', '$desc', '$price', '$file_content_escaped') ";
-         print($sql);
          $result = mysqli_query($conn, $sql);
  
          // Vérifiez si l'insertion a réussi
@@ -37,7 +36,7 @@ function create_product($conn, $name, $type, $desc, $price, $file){
     
         
         
-function update_product($conn, $name, $type, $desc, $price, $image, $id){
+function update_product($conn, $name, $type, $desc, $price, $file, $id){
 
 /* fonction pour update / modifier un(e) 'product' en fonction de l'id
  *              entree: element de connexion
@@ -45,8 +44,18 @@ function update_product($conn, $name, $type, $desc, $price, $image, $id){
  *              sortie: sql request
  */
 
-$sql = "UPDATE `products` set `name`='$name', `type`='$type', `desc`='$desc', `price`='$price', `image`='$image' WHERE`id_product`=$id";
-return mysqli_query($conn, $sql);
+ if (isset($file)) {
+     // Récupérez le nom temporaire du fichier
+     $file_tmp = $file["fichier"]['tmp_name'];
+
+     // Lisez le contenu du fichier
+     $file_content = file_get_contents($file_tmp);
+
+     // Echappez le contenu pour l'insérer dans la base de données (pour éviter les injections SQL)
+     $file_content_escaped = mysqli_real_escape_string($conn, $file_content);
+     $sql = "UPDATE `products` set `name`='$name', `type`='$type', `desc`='$desc', `price`='$price', `image`='$file_content_escaped' WHERE`id_product`=$id";
+     return mysqli_query($conn, $sql);
+}
 }
     
 function update_product_with_parameter($conn, $parameter_name, $parameter_value, $id){

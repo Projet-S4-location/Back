@@ -163,4 +163,3 @@ function select_all_product_with_parameter($conn, $parameter_name, $parameter_va
     return $ret ;
     }
 
-?>

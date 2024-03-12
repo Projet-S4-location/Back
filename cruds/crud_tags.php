@@ -1,5 +1,14 @@
 <?php
 
+function select_all_tag($conn){
+    $sql = "SELECT name FROM `tag` ORDER BY name";
+    if ($res = mysqli_query($conn, $sql))
+    {
+         $res = mysqli_fetch_all($res);
+    }
+    return $res;
+}
+
 function get_tags_by_product($conn, $id){
 
     $sql = "SELECT `id_tag` FROM `products_tags` WHERE id_product = $id";
@@ -29,3 +38,5 @@ function get_tags_by_product($conn, $id){
 
     return $tags;
 }
+
+

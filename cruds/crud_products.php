@@ -111,6 +111,17 @@ function select_all_studios($conn){
      return $studios;
 }
 
+function select_product_date($conn, $start, $end){
+     $sql = "SELECT products.id_product, products.name, products.type, products.desc, products.price FROM `products` WHERE type != 'studio' and products.id_product not in(SELECT `id_product` FROM `reservations` WHERE reservations.start_date >= '$start' AND reservations.start_date <= '$end' OR reservations.end_date >= '$start' AND reservations.end_date <= '$end') ORDER BY `id_product`";
+     $products = array();
+     if ($res = mysqli_query($conn, $sql))
+     {
+          while($row=mysqli_fetch_assoc($res)){
+		     $products[]=$row;	
+	     }
+     }
+     return $products;
+}
 function select_all_not_studios($conn){
      $sql = "SELECT `id_product`, `name`, `type`, `desc`, `price` FROM `products` WHERE type != 'studio' ORDER BY `id_product`";
      $products = array();

@@ -100,7 +100,7 @@ function select_all_product($conn){
 }
 
 function select_all_studios($conn){
-     $sql = "SELECT `id_product`, `name`, `type`, `desc`, `price`, `image` FROM `products` WHERE type = 'studio' ORDER BY `id_product`";
+     $sql = "SELECT `id_product`, `name`, `type`, `desc`, `price` FROM `products` WHERE type = 'studio' ORDER BY `id_product`";
      $studios = array();
      if ($res = mysqli_query($conn, $sql))
      {
